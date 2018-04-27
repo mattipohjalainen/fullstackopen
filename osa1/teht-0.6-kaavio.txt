@@ -1,0 +1,16 @@
+kayttaja->selain:
+note left of selain
+kayttaja kirjottaa tekstikentään uuden muistiinpanon
+fullstack-exampleapp.herokuapp.com/spa osoitteessa
+ja klikkaa Talleta nappia
+end note
+
+note left of selain
+spa.js lisää kirjoitetun muistiinpanon sivun html:ään, 
+ja lähettää uuden muistiinpanon palvelimelle json muodossa
+end note
+selain->palvelin: POST fullstack-exampleapp.herokuapp.com/new_note_spa
+note left of palvelin
+  palvelin tallentaa muistiinpanon
+end note
+palvelin->selain: status 201

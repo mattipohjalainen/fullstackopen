@@ -1,0 +1,28 @@
+kayttaja->selain:
+note left of selain
+kayttaja kirjottaa osoiteriville
+fullstack-exampleapp.herokuapp.com/notes
+end note
+selain->palvelin: GET fullstack-exampleapp.herokuapp.com/notes
+note left of palvelin
+  muodostetaan selaimelle palautettava HTML
+end note
+palvelin->selain: status 200, sivun HTML-koodi
+
+selain->palvelin: GET https://fullstack-exampleapp.herokuapp.com/main.css
+palvelin->selain: status 200, main.css
+
+selain->palvelin: GET https://fullstack-exampleapp.herokuapp.com/main.js
+palvelin->selain: status 200, main.js
+
+note left of selain
+ selain alkaa suorittaa hakemansa main.js
+end note
+
+selain->palvelin: GET https://fullstack-exampleapp.herokuapp.com/data.json
+palvelin->selain: status 200, json
+
+note left of selain
+ selain näyttää palvelimen palauttaman HTML:n
+ johon main.js on lisännyt listan kommenteista
+end note

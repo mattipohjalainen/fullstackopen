@@ -1,0 +1,28 @@
+kayttaja->selain:
+note left of selain
+kayttaja kirjottaa selaimen osoitekenttään
+https://fullstack-exampleapp.herokuapp.com/spa
+end note
+selain->palvelin: GET fullstack-exampleapp.herokuapp.com/spa
+note left of palvelin
+  muodostetaan selaimelle palautettava HTML
+end note
+palvelin->selain: status 200, sivun HTML-koodi
+
+selain->palvelin: GET https://fullstack-exampleapp.herokuapp.com/main.css
+palvelin->selain: status 200, main.css
+
+selain->palvelin: GET https://fullstack-exampleapp.herokuapp.com/spa.js
+palvelin->selain: status 200, spa.js
+
+note left of selain
+ selain alkaa suorittaa hakemansa spa.js
+end note
+
+selain->palvelin: GET https://fullstack-exampleapp.herokuapp.com/data.json
+palvelin->selain: status 200, json
+
+note left of selain
+ selain näyttää palvelimen palauttaman HTML:n
+ johon spa.js on lisännyt listan muistiinpanoista
+end note
