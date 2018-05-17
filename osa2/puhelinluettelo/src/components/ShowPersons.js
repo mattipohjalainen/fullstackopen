@@ -7,6 +7,7 @@ const ShowPersons = (props) => {
     const personsToShow = () => {
       if (filtteri === '') {
         console.log("tyhjä filtteri")
+        console.log(persons)
         return persons
       }
       const subset = persons.filter(person => {
@@ -19,13 +20,15 @@ const ShowPersons = (props) => {
   
     }
   
-
     return (
         <div>
           <h2>Numerot</h2>
         <ul>
           {personsToShow().map(person => (
-            <li key={person.name}>{person.name} {person.number}</li>
+            <li key={person.id}>
+            {person.name} {person.number} <button onClick={props.poista(person.id, person.name)}>Poista</button>
+
+            </li>
           ))}
         </ul>
         </div>

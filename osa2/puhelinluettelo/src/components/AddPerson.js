@@ -4,7 +4,6 @@ class AddPerson extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          persons: props.persons,
           newName: '',
           newNumber: ''
         };
@@ -15,25 +14,13 @@ class AddPerson extends React.Component {
       addPerson = event => {
         event.preventDefault();
         console.log("nappia painettu ", this.state.newName);
-        console.log(this.state.persons);
-    
-        if (
-          this.state.persons.map(item => item.name).includes(this.state.newName) ===
-          true
-        ) {
-          console.log(this.state.newName, " on jo mukana");
-          return;
-        }
-    
+        
         const personObject = {
           name: this.state.newName,
           number: this.state.newNumber
         };
-    
-        const persons = this.state.persons.concat(personObject);
-    
+        
         this.setState({
-          persons,
           newName: "",
           newNumber: ""
         });
