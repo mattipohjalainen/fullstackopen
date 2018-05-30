@@ -32,6 +32,38 @@ const favoriteBlog = (blogs) => {
 
 }
 
+const mostLikes = (blogs) => {
+  let mostLikes = {}
+  if (blogs.length === 1) {
+    mostLikes = {
+      author: blogs[0].author,
+      likes: blogs[0].likes
+    }
+  } else if (blogs.length > 1) {
+    //console.log("start mostLikes")
+    const reducer = (result, current) => {
+      //console.log("reducer result in beginning", result)
+      //console.log("current author", current.author)
+      const index = result.findIndex(item => item.author === current.author)
+      if (index !== -1) {
+        result[index].likes = result[index].likes + current.likes
+      } else {
+        //console.log("add new item")
+        result.push({ author: current.author, likes: current.likes })
+      }
+      return result
+    }
+    const temp = blogs.reduce(reducer, [])
+
+    const anotherReducer = (prev, current) => {
+      return (prev.likes > current.likes) ? prev : current
+    }
+    mostLikes = temp.reduce(anotherReducer, {})
+
+  }
+  return mostLikes
+}
+
 module.exports = {
-  dummy, totalLikes, favoriteBlog
+  dummy, totalLikes, favoriteBlog, mostLikes
 }
