@@ -45,7 +45,26 @@ blogsRouter.get("/:id", (request, response) => {
 blogsRouter.delete("/:id", async (request, response) => {
   try {
     console.log("try to remove blog", request.params.id);
-    await Blog.findByIdAndRemove(request.params.id);
+    //await Blog.findByIdAndRemove(request.params.id)
+    const blog = await Blog.findById(request.params.id)
+    const token = getTokenFrom(request)
+
+    const decodedToken = jwt.verify(token, process.env.SECRET)
+
+
+    if (!token || !decodedToken.id) {
+      return response.status(401).json({ error: 'token missing or invalid' })
+    }
+    console.log(blog.user, decodedToken.id)
+
+    if (decodedToken.id.toString() !== blog.user.toString()) {
+      return response.status(400).json({ error: 'only creator can delete a blog' })
+    }
+
+    if (blog) {
+      await blog.remove()
+    }
+
     response.status(204).end();
   } catch (exception) {
     console.log(exception);
@@ -65,7 +84,7 @@ blogsRouter.post("/", async (request, response) => {
       return response.status(401).json({ error: 'token missing or invalid' })
     }
 
-    if (body.title === undefined) {
+    if (body.title === undefined || body.url === undefined ) {
       return response.status(400).json({ error: "title missing" });
     }
     // latest user inserted
@@ -75,7 +94,7 @@ blogsRouter.post("/", async (request, response) => {
       title: body.title,
       author: body.author,
       url: body.url,
-      likes: body.likes,
+      likes: (body.likes || 0),
       user: user._id
     });
 
@@ -89,6 +108,12 @@ blogsRouter.post("/", async (request, response) => {
     console.log(exception);
     response.status(400).json({ error: "create failed" });
   }
-});
+})
+blogsRouter.put('/:id', async (request, response) => {
+  const { title, author, url, likes } = request.body
+  const blog = await Blog.findByIdAndUpdate(request.params.id, { title, author, url, likes } , { new: true })
+
+  response.send(blog)
+})
 
 module.exports = blogsRouter;
