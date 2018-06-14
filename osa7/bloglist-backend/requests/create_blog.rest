@@ -1,0 +1,10 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlcHBvIiwiaWQiOiI1YjBlNDU3NTRkZjA3YWQwOGUxZjYwMTIiLCJpYXQiOjE1Mjc2NjQwMjF9.K3wxTxqXaLWqSdZOgmWSTgp_W5-8NKxfHfbqADiaKtM
+
+{
+        "title": "fullstackopen on ok6",
+        "author": "Teppo",
+        "url": "https://fullstackopen.github.io",
+        "likes": 0
+    }

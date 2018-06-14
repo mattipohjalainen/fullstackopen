@@ -1,0 +1,6 @@
+POST http://localhost:3003/api/blogs/5a422b891b54a676234d17fa/comments 
+content-type: application/json
+
+{
+  "comment": "I agree"
+}
